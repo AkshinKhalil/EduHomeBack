@@ -1,8 +1,10 @@
 using EduHomeBackEnd.DAL;
+using EduHomeBackEnd.Models;
 using EduHomeBackEnd.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +34,26 @@ namespace EduHomeBackEnd
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
             services.AddScoped<LayoutServices>();
+            services.AddSession(option =>
+            {
+                option.IdleTimeout = TimeSpan.FromSeconds(100);
+            });
+            services.AddHttpContextAccessor();
+
+            services.AddIdentity<AppUser, IdentityRole>(option => {
+                option.SignIn.RequireConfirmedEmail = true;
+                option.User.RequireUniqueEmail = true;
+
+                option.Password.RequireDigit = true;
+                option.Password.RequiredLength = 8;
+                option.Password.RequireNonAlphanumeric = false;
+                option.Password.RequireLowercase = false;
+                option.Password.RequireUppercase = false;
+
+                option.Lockout.MaxFailedAccessAttempts = 5;
+                option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                option.Lockout.AllowedForNewUsers = true;
+            }).AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +73,7 @@ namespace EduHomeBackEnd
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();     //AppUser register edende elave olunur
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

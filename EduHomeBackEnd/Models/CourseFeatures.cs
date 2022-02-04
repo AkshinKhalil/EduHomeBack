@@ -8,6 +8,7 @@ namespace EduHomeBackEnd.Models
         public int Id { get; set; }
         [Required]
         [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Starts { get; set; }
         [Required]
         [StringLength(maximumLength: 50)]
@@ -23,8 +24,8 @@ namespace EduHomeBackEnd.Models
         public string Language { get; set; }
         [Required]
         public int StudentsCount { get; set; }
-        public int CourseId { get; set; }
         public  Course Course { get; set; }
-        
+        public int CourseId { get; set; }
+
     }
 }

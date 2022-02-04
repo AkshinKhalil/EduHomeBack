@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EduHomeBackEnd.Models
 {
@@ -22,7 +25,15 @@ namespace EduHomeBackEnd.Models
         [Required]
         [StringLength(maximumLength: 200)]
         public string Certification { get; set; }
-
+        public int CategoryId { get; set; }   
         public  CourseFeatures CourseFeatures { get; set; }
+        public Category Category { get; set; }
+        [NotMapped]
+        public List<CourseTag> CourseTags { get; set; }
+        [NotMapped]
+        public List<int> TagIds { get; set; }
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
+
     }
 }

@@ -74,12 +74,21 @@
             </select>
             <span class="mt-2 text text-danger" asp-validation-for="@Model.HobbiesIds"></span>
         </div>
-        <div class="mb-3">
-            <label asp-for="@Model.ImageFile" class="form-label">Select images</label>
+   <div class="mb-3">
+            <label asp-for="@Model.ImageFile" class="form-label">Select image</label>
             <input asp-for="@Model.ImageFile" class="form-control" />
             <span class="mt-2 text text-danger" asp-validation-for="@Model.ImageFile"></span>
         </div>
 
+        <div class="mb-3">
+     <div class="d-flex">
+    <div style="position:relative">               
+        <img width="200" style="object-fit:contain" src="~/assets/img/teacher/@Model.Image" alt="teacher image" />
+        <i class="fas fa-times close" style="position:absolute;top:0;right:0;color:red;font-size:20"></i>
+        <input type="hidden" name="ImageIds" value="@Model.Id" />
+    </div>
+     </div>
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

@@ -35,6 +35,8 @@ namespace EduHomeBackEnd.Models
         public List<int> HobbiesIds { get; set; }
         [NotMapped]
         public IFormFile ImageFile { get; set; }
+        [NotMapped]
+        public int ImageIds { get; set; }
 
     }
 }

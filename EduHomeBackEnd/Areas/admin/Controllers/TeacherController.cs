@@ -4,6 +4,7 @@ using EduHomeBackEnd.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,9 +21,11 @@ namespace EduHomeBackEnd.Areas.admin.Controllers
             _context = context;
             _env = env;
         }
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            List<Teacher> flowers = _context.Teachers.ToList();
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPage = Math.Ceiling((decimal)_context.Events.Count() / 1);
+            List<Teacher> flowers = _context.Teachers.Skip((page - 1) * 2).Take(2).ToList();
             return View(flowers);
         }
         public IActionResult Create()
