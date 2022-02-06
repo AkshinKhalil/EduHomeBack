@@ -24,7 +24,13 @@ namespace EduHomeBackEnd.Controllers
             HomeVM model = new HomeVM()
             {
                 Teachers = _context.Teachers.Include(t => t.TeacherHobbies).ToList(),
-                WelcomeSection = _context.WelcomeSections.FirstOrDefault()
+                WelcomeSection = _context.WelcomeSections.FirstOrDefault(),
+                Sliders=_context.Sliders.ToList(),
+                Courses = _context.Courses.ToList(),
+                Blogs = _context.Blogs.ToList(),
+                Events = _context.Events.ToList(),
+                Comments = _context.Comments.ToList(),
+                Setting = _context.Settings.FirstOrDefault()
             };
 
             return View(model);

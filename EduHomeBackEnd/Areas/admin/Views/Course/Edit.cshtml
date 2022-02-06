@@ -61,19 +61,18 @@
             <input asp-for="@Model.CourseFeatures.StudentsCount"><br />
             <span class="mt-2 text text-danger" asp-validation-for="@Model.CourseFeatures.StudentsCount"></span>
         </div>
-         <div class="mb-3">
+            <div class="mb-3">
             <label asp-for="@Model.TagIds" class="form-label">Tags</label>
             <select asp-for="@Model.TagIds" class="form-select">
                 @foreach (var tag in ViewBag.Tags)
                 {
-                    if (ViewBag.CourseTags.TagId ==tag.Id)
+                    if (Model.CourseTags.FirstOrDefault(ct => ct.TagId == tag.Id) != null)
                     {
                         <option value="@tag.Id" selected>@tag.Name</option>
                     }
                     else
                     {
                         <option value="@tag.Id">@tag.Name</option>
-
                     }
                 }
             </select>
@@ -94,16 +93,13 @@
 
         <div class="mb-3">
             <div class="d-flex">
-                
-                     <div style="position:relative">
+                <div style="position:relative">
         <img width="200" style="object-fit:contain" src="~/assets/img/course/@Model.Image" alt="course image" />
         <i class="fas fa-times close" style="position:absolute;top:0;right:0;color:red;font-size:20"></i>
         <input type="hidden" name="ImageIds" value="@Model.Id" />
-    </div>
-                
+    </div>                
             </div>
         </div>
-
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

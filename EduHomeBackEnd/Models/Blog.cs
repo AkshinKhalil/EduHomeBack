@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,5 +24,6 @@ namespace EduHomeBackEnd.Models
         public IFormFile ImageFile { get; set; }
         [NotMapped]
         public int ImageIds { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }

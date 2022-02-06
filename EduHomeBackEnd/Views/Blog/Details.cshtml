@@ -1,0 +1,76 @@
+﻿@model BlogVM
+@{
+    ViewData["Title"] = "Details";
+}
+
+		<!-- Banner Area Start -->
+		<div class="banner-area-wrapper">
+            <div class="banner-area text-center">	
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="banner-content-wrapper">
+                                <div class="banner-content">
+                                    <h2>blog details</h2> 
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+		<!-- Banner Area End -->
+        <!-- Blog Start -->
+        <div class="blog-details-area pt-150 pb-140">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="blog-details">
+                            <div class="blog-details-img">
+                                <img src="~/assets/img/blog/blog-detail.jpg" alt="blog-details">
+                            </div>
+                            <div class="blog-details-content">
+                                <h2>@Model.Blog.Name </h2>
+                                <h6>@Model.Blog.StartDate  /  <i class="fa fa-comments-o"></i> @Model.Comments.Count()</h6>
+                                 <p>@Model.Blog.Description</p>
+                            </div>
+                            <div class="reply-area">
+                                <h3>LEAVE A REPLY</h3>
+                                <p>I must explain to you how all this a mistaken idea of ncing great explorer of the rut<br> the is lder of human happinescias unde omnis iste natus error sit volptatem </p>
+                                <form asp-action="AddComment" method="post">
+                        <label for="Text"><span>Your review *</span></label><br>
+                        <textarea name="Text"></textarea>
+                        <input type="hidden" name="BlogId" value="@Model.Blog.Id" />
+                        <button type="submit"><span>SUBMIT</span></button>
+                    </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="blog-sidebar right">
+                            <div class="single-blog-widget mb-47">
+                                <h3>search</h3>
+                                <div class="blog-search">
+                                    <form id="search" action="#">
+                                        <input type="search" placeholder="Search..." name="search" />
+                                        <button type="submit">
+                                            <span><i class="fa fa-search"></i></span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="single-blog-widget">
+                                <h3>tags</h3>
+                                <div class="single-tag">
+                                       @foreach (Tag tag in @Model.Tags)
+                                   {
+                                     <a href="blog-details.html" class="mr-10 mb-10">@tag.Name</a>  
+                                   }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Blog End -->

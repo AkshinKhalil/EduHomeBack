@@ -136,6 +136,39 @@ namespace EduHomeBackEnd.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("EduHomeBackEnd.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("BlogId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsAccess")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("BlogId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("EduHomeBackEnd.Models.Course", b =>
                 {
                     b.Property<int>("Id")
@@ -349,6 +382,10 @@ namespace EduHomeBackEnd.Migrations
                     b.Property<string>("TwitIcon")
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
+
+                    b.Property<string>("VideoURL")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
 
                     b.Property<string>("VimeoIcon")
                         .HasColumnType("nvarchar(150)")
@@ -661,6 +698,19 @@ namespace EduHomeBackEnd.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("EduHomeBackEnd.Models.Comment", b =>
+                {
+                    b.HasOne("EduHomeBackEnd.Models.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("EduHomeBackEnd.Models.Blog", "Blog")
+                        .WithMany("Comments")
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("EduHomeBackEnd.Models.Course", b =>
                 {
                     b.HasOne("EduHomeBackEnd.Models.Category", "Category")
@@ -682,7 +732,7 @@ namespace EduHomeBackEnd.Migrations
             modelBuilder.Entity("EduHomeBackEnd.Models.CourseTag", b =>
                 {
                     b.HasOne("EduHomeBackEnd.Models.Course", "Course")
-                        .WithMany()
+                        .WithMany("CourseTags")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

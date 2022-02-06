@@ -8,7 +8,7 @@ namespace EduHomeBackEnd.Models
         public int Id { get; set; }
         [Required]
         [StringLength(maximumLength: 70)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         public List<Course> Course { get; set; }
     }

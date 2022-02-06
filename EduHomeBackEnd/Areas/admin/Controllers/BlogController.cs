@@ -3,6 +3,7 @@ using EduHomeBackEnd.Extensions;
 using EduHomeBackEnd.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,8 +22,8 @@ namespace EduHomeBackEnd.Areas.admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Blog> events = _context.Blogs.ToList();
-            return View(events);
+            List<Blog> blog = _context.Blogs.Include(b => b.Comments).ToList();
+            return View(blog);
         }
         public IActionResult Create()
         {            
@@ -99,6 +100,21 @@ namespace EduHomeBackEnd.Areas.admin.Controllers
             _context.SaveChanges();
 
             return Json(new { status = 200 });
+        }
+
+        public IActionResult Comments(int BlogId)
+        {
+            if (!_context.Comments.Any(c => c.BlogId == BlogId)) return RedirectToAction("Index", "Blog");
+            List<Comment> comments = _context.Comments.Include(c => c.AppUser).Where(c => c.BlogId == BlogId).ToList();
+            return View(comments);
+        }
+        public IActionResult CommentStatusChange(int id)
+        {
+            if (!_context.Comments.Any(c => c.Id == id)) return RedirectToAction("Index", "Blog");
+            Comment comment = _context.Comments.SingleOrDefault(c => c.Id == id);
+            comment.IsAccess = comment.IsAccess ? false : true;
+            _context.SaveChanges();
+            return RedirectToAction("Comments", "Blog", new { FlowerId = comment.BlogId });
         }
     }
 }

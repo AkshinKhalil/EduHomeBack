@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,11 +34,17 @@ namespace EduHomeBackEnd
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
+
             services.AddScoped<LayoutServices>();
             services.AddSession(option =>
             {
                 option.IdleTimeout = TimeSpan.FromSeconds(100);
             });
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                Formatting = Newtonsoft.Json.Formatting.Indented,
+                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            };
             services.AddHttpContextAccessor();
 
             services.AddIdentity<AppUser, IdentityRole>(option => {
@@ -73,8 +80,11 @@ namespace EduHomeBackEnd
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseAuthentication();     //AppUser register edende elave olunur
+
+            app.UseAuthentication(); //Appuser register olanda elave olunur
+
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

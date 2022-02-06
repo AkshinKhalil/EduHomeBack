@@ -28,7 +28,6 @@ namespace EduHomeBackEnd.Models
         public int CategoryId { get; set; }   
         public  CourseFeatures CourseFeatures { get; set; }
         public Category Category { get; set; }
-        [NotMapped]
         public List<CourseTag> CourseTags { get; set; }
         [NotMapped]
         public List<int> TagIds { get; set; }

@@ -6,7 +6,9 @@
 <section id="slider-container" class="slider-area two"> 
             <div class="slider-owl owl-theme owl-carousel"> 
                 <!-- Start Slingle Slide -->
-                <div class="single-slide item" style="background-image: url(../assets/img/slider/slider2.jpg)">
+                @foreach (Slider slider in Model.Sliders)
+               {
+                 <div class="single-slide item" style="background-image: url(../assets/img/slider/@slider.Image)">
                     <!-- Start Slider Content -->
                     <div class="slider-content-area">  
                         <div class="container">
@@ -14,8 +16,8 @@
                                 <div class="col-md-10 col-md-offset-1"> 
                                     <div class="slide-content-wrapper">
                                         <div class="slide-content text-center">
-                                            <h2>EDUCATION MAKES HUMANITY </h2>
-                                            <p>I must explain to you how all this mistaken idea of denouncing pleasure and prsing pain was born and I will give you a complete account of the system  </p>
+                                            <h2>@slider.Title </h2>
+                                            <p>@slider.SubTitle</p>
                                             <a class="default-btn" href="about.html">Learn more</a>
                                         </div>
                                     </div>
@@ -24,49 +26,9 @@
                         </div>
                     </div>
                     <!-- Start Slider Content -->
-                </div>
-                <!-- End Slingle Slide -->
-                <!-- Start Slingle Slide -->
-                <div class="single-slide item" style="background-image: url(~/assets/img/slider/slider3.jpg)">
-                    <!-- Start Slider Content -->
-                    <div class="slider-content-area">   
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-10 col-md-offset-1"> 
-                                    <div class="slide-content-wrapper">
-                                        <div class="slide-content text-center">
-                                            <h2>EDUCATION MAKES HUMANITY </h2>
-                                            <p>I must explain to you how all this mistaken idea of denouncing pleasure and prsing pain was born and I will give you a complete account of the system  </p>
-                                            <a class="default-btn" href="about.html">Learn more</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Start Slider Content -->
-                </div>
-                <!-- End Slingle Slide -->
-                <!-- Start Slingle Slide -->
-                <div class="single-slide item" style="background-image: url(~/assets/img/slider/slider1.jpg)">
-                    <!-- Start Slider Content -->
-                    <div class="slider-content-area">  
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-10 col-md-offset-1"> 
-                                    <div class="slide-content-wrapper">
-                                        <div class="slide-content text-center">
-                                            <h2>EDUCATION MAKES HUMANITY </h2>
-                                            <p>I must explain to you how all this mistaken idea of denouncing pleasure and prsing pain was born and I will give you a complete account of the system  </p>
-                                            <a class="default-btn" href="about.html">Learn more</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Start Slider Content -->
-                </div>
+                </div>  
+               }
+                
                 <!-- End Slingle Slide -->								
             </div>
         </section>
@@ -106,54 +68,26 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4 col-sm-6 col-xs-12">
+                    @foreach (Course course in Model.Courses)
+                   {
+                       <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="single-course">
                             <div class="course-img">
-                                <a href="course-details.html"><img src="~/assets/img/course/course1.jpg" alt="course">
+                                <a href="course-details.html"><img src="~/assets/img/course/@course.Image" alt="course">
                                     <div class="course-hover">
                                         <i class="fa fa-link"></i>
                                     </div>
                                 </a>
                             </div>
                             <div class="course-content">
-                                <h3><a href="course-details.html">CSE ENGINEERING</a></h3>
-                                <p>I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human happiness</p>
+                                <h3><a href="course-details.html">@course.Name</a></h3>
+                                <p>@course.Description</p>
                                 <a class="default-btn" href="course-details.html">read more</a>
                             </div>   
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="single-course">
-                            <div class="course-img">
-                                <a href="course-details.html"><img src="~/assets/img/course/course2.jpg" alt="course">
-                                    <div class="course-hover">
-                                        <i class="fa fa-link"></i>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="course-content">
-                                <h3><a href="course-details.html">political science</a></h3>
-                                <p>I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human happiness</p>
-                                <a class="default-btn" href="course-details.html">read more</a>
-                            </div>   
-                        </div>
-                    </div>
-                    <div class="col-md-4 hidden-sm col-xs-12">
-                        <div class="single-course">
-                            <div class="course-img">
-                                <a href="course-details.html"><img src="~/assets/img/course/course3.jpg" alt="course">
-                                    <div class="course-hover">
-                                        <i class="fa fa-link"></i>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="course-content">
-                                <h3><a href="course-details.html">micro biology</a></h3>
-                                <p>I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human happiness</p>
-                                <a class="default-btn" href="course-details.html">read more</a>
-                            </div>   
-                        </div>
-                    </div>
+                   }
+
                 </div>
             </div>
         </div>
@@ -167,7 +101,7 @@
                             <h3>TAKE A VIDEO TOUR</h3>
                             <div class="notice-video">
                                 <div class="video-icon video-hover">
-                                    <a class="video-popup" href="https://www.youtube.com/watch?v=to6Ghf8UL7o">
+                                    <a class="video-popup" href="@Model.Setting.VideoURL">
                                         <i class="zmdi zmdi-play"></i>
                                     </a>
                                 </div>
@@ -221,17 +155,19 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 col-sm-12 col-xs-12">
+                    @foreach (Event eventt in Model.Events.Skip(2))
+                   {
+                       <div class="col-md-6 col-sm-12 col-xs-12">
                         <div class="single-event mb-35">
                             <div class="event-img">
-                                <a href="event-details.html"><img src="~/assets/img/event/event1.jpg" alt="event"></a>
+                                <a href="event-details.html"><img src="~/assets/img/event/@eventt.Image" alt="event"></a>
                             </div>
                             <div class="event-content text-left">
-                                <h3>20 June 2017</h3>
-                                <h4><a href="event-details.html">ADVANCE PHP WORKSHOP</a></h4>
+                                <h3 id="txtDOB">@eventt.StartTime</h3>
+                                <h4><a href="event-details.html">@eventt.Name</a></h4>
                                 <ul>
-                                    <li><i class="fa fa-clock-o"></i>9.00 AM - 4.45 PM</li>
-                                    <li><i class="fa fa-map-marker"></i>New Yourk City</li>
+                                    <li><i class="fa fa-clock-o"></i>@eventt.StartTime - @eventt.EndTime</li>
+                                    <li><i class="fa fa-map-marker"></i>@eventt.Venue</li>
                                 </ul>
                                 <div class="event-content-right">
                                     <a class="default-btn" href="event-details.html">join now</a>
@@ -240,55 +176,23 @@
                         </div>
                         <div class="single-event hidden-sm hidden-xs">
                             <div class="event-img">
-                                <a href="event-details.html"><img src="~/assets/img/event/event3.jpg" alt="event"></a>
+                                <a href="event-details.html"><img src="~/assets/img/event/@eventt.Image" alt="event"></a>
                             </div>
                             <div class="event-content text-left">
-                                <h3>16 June 2017</h3>
-                                <h4><a href="event-details.html">learning english history</a></h4>
+                                <h3 id="txtDOB">@eventt.StartTime</h3>
+                                <h4><a href="event-details.html">@eventt.Name</a></h4>
                                 <ul>
-                                    <li><i class="fa fa-clock-o"></i>9.00 AM - 4.45 PM</li>
-                                    <li><i class="fa fa-map-marker"></i>New Yourk City</li>
+                                    <li><i class="fa fa-clock-o"></i>@eventt.StartTime - @eventt.EndTime</li>
+                                    <li><i class="fa fa-map-marker"></i>@eventt.Venue</li>
                                 </ul>
                                 <div class="event-content-right">
                                     <a class="default-btn" href="event-details.html">join now</a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12 col-xs-12">
-                        <div class="single-event mb-35">
-                            <div class="event-img">
-                                <a href="event-details.html"><img src="~/assets/img/event/event2.jpg" alt="event"></a>
-                            </div>
-                            <div class="event-content text-left">
-                                <h3>18 June 2017</h3>
-                                <h4><a href="event-details.html">DIGITAL MARKETING ANALYSIS</a></h4>
-                                <ul>
-                                    <li><i class="fa fa-clock-o"></i>9.00 AM - 4.45 PM</li>
-                                    <li><i class="fa fa-map-marker"></i>New Yourk City</li>
-                                </ul>
-                                <div class="event-content-right">
-                                    <a class="default-btn" href="event-details.html">join now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single-event hidden-sm hidden-xs">
-                            <div class="event-img">
-                                <a href="event-details.html"><img src="~/assets/img/event/event3.jpg" alt="event"></a>
-                            </div>
-                            <div class="event-content text-left">
-                                <h3>14 June 2017</h3>
-                                <h4><a href="event-details.html">UI & UX DESIGNER MEETUP</a></h4>
-                                <ul>
-                                    <li><i class="fa fa-clock-o"></i>9.00 AM - 4.45 PM</li>
-                                    <li><i class="fa fa-map-marker"></i>New Yourk City</li>
-                                </ul>
-                                <div class="event-content-right">
-                                    <a class="default-btn" href="event-details.html">join now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div> 
+                   }
+                   
                 </div>
             </div>
         </div>
@@ -329,63 +233,30 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4 col-sm-6 col-xs-12">
+                    @foreach (Blog blog in Model.Blogs.Skip(3))
+                   {
+                         <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="single-blog">
                             <div class="blog-img">
-                                <a href="blog-details.html"><img src="~/assets/img/blog/blog1.jpg" alt="blog"></a>
+                                <a href="blog-details.html"><img src="~/assets/img/blog/@blog.Image" alt="blog"></a>
                                 <div class="blog-hover">
                                     <a href="blog-details.html"><i class="fa fa-link"></i></a>
                                 </div>
                             </div>
                             <div class="blog-content">
                                 <div class="blog-top">
-                                    <p>By Alex  /  June 20, 2017  /  <i class="fa fa-comments-o"></i> 4</p>
+                                    <p>  /  @blog.StartDate  /  <i class="fa fa-comments-o"></i> </p>
                                 </div>
                                 <div class="blog-bottom">
-                                    <h2><a href="blog-details.html">I must explain to you how all this a mistaken idea </a></h2>
+                                    <h2><a href="blog-details.html">@blog.Name </a></h2>
                                     <a href="blog-details.html">read more</a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="single-blog">
-                            <div class="blog-img">
-                                <a href="blog-details.html"><img src="~/assets/img/blog/blog2.jpg" alt="blog"></a>
-                                <div class="blog-hover">
-                                    <a href="blog-details.html"><i class="fa fa-link"></i></a>
-                                </div>
-                            </div>
-                            <div class="blog-content">
-                                <div class="blog-top">
-                                    <p>By Alex  /  June 20, 2017  /  <i class="fa fa-comments-o"></i> 4</p>
-                                </div>
-                                <div class="blog-bottom">
-                                    <h2><a href="blog-details.html">I must explain to you how all this a mistaken idea </a></h2>
-                                    <a href="blog-details.html">read more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 hidden-sm col-xs-12">
-                        <div class="single-blog">
-                            <div class="blog-img">
-                                <a href="blog-details.html"><img src="~/assets/img/blog/blog3.jpg" alt="blog"></a>
-                                <div class="blog-hover">
-                                    <a href="blog-details.html"><i class="fa fa-link"></i></a>
-                                </div>
-                            </div>
-                            <div class="blog-content">
-                                <div class="blog-top">
-                                    <p>By Alex  /  June 20, 2017  /  <i class="fa fa-comments-o"></i> 4</p>
-                                </div>
-                                <div class="blog-bottom">
-                                    <h2><a href="blog-details.html">I must explain to you how all this a mistaken idea </a></h2>
-                                    <a href="blog-details.html">read more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div> 
+                   }
+                 
+                  
                 </div>
             </div>
         </div>
@@ -421,3 +292,10 @@
             </div>
         </div>
 
+        <script>
+    $(document).ready(function () {
+        $('#txtDOB').datepicker({
+            dateFormat: 'dd/mmmm/yy'  
+        });
+    });
+</script>

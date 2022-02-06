@@ -73,11 +73,9 @@ namespace EduHomeBackEnd.Areas.admin.Controllers
         {
             ViewBag.Tags = _context.Tags.ToList();
             ViewBag.Categories = _context.Categories.ToList();
-            ViewBag.CourseTags = _context.CourseTags.Include(ct => ct.Course).Include(ct=>ct.Tag).FirstOrDefault(ct=>ct.CourseId==id);
-            
-            if (!ModelState.IsValid) return NotFound();
+            Course course = _context.Courses.Include(c => c.CourseFeatures).Include(c => c.CourseTags).FirstOrDefault(c => c.Id == id);
 
-            Course course = _context.Courses.Include(c=>c.CourseFeatures).FirstOrDefault(c => c.Id == id);
+            if (!ModelState.IsValid) return NotFound();            
 
             if (course == null) return NotFound();
 
@@ -91,14 +89,13 @@ namespace EduHomeBackEnd.Areas.admin.Controllers
             ViewBag.Tags = _context.Tags.ToList();
             ViewBag.Categories = _context.Categories.ToList();
             ViewBag.CourseTags = _context.CourseTags.Include(ct => ct.Course).Include(ct => ct.Tag).FirstOrDefault(ct => ct.CourseId == course.Id);
-            Course existedCourse = _context.Courses.FirstOrDefault(c => c.Id == course.Id);
-
+            Course existedCourse = _context.Courses.Include(c => c.CourseFeatures).Include(c => c.CourseTags).Include(c => c.Category).FirstOrDefault(c => c.Id == course.Id);
 
             if (!ModelState.IsValid) return View(existedCourse);
 
             if (existedCourse == null) return NotFound();
 
-            if (course.ImageFile != null)
+            if (course.ImageFile != null )
             {
                 if (!course.ImageFile.IsImage())
                 {
@@ -113,9 +110,9 @@ namespace EduHomeBackEnd.Areas.admin.Controllers
                 Helpers.Helper.DeleteImg(_env.WebRootPath, "assets/img/course", existedCourse.Image);
                 existedCourse.Image = course.ImageFile.SaveImg(_env.WebRootPath, "assets/img/course");
 
-               // List<CourseTag> removeTag = existedCourse.CourseTags.Where(ct => !course.TagIds.Contains(ct.Id)).ToList();
+                List<CourseTag> removeTag = existedCourse.CourseTags.Where(ct => !course.TagIds.Contains(ct.Id)).ToList();
 
-               // existedCourse.CourseTags.RemoveAll(ct => removeTag.Any(rt => ct.Id == rt.Id));
+                existedCourse.CourseTags.RemoveAll(ct => removeTag.Any(rt => ct.Id == rt.Id));
                 foreach (var tagid in course.TagIds)
                 {
                     CourseTag courseTag = existedCourse.CourseTags.FirstOrDefault(ct => ct.TagId == tagid);
@@ -130,15 +127,31 @@ namespace EduHomeBackEnd.Areas.admin.Controllers
                     }
                 }
             }
-
+            existedCourse.CategoryId = course.CategoryId;
             existedCourse.Name = course.Name;
             existedCourse.AboutCourse = course.AboutCourse;
             existedCourse.Description = course.Description;
             existedCourse.Apply = course.Apply;
             existedCourse.Certification = course.Certification;
+            existedCourse.CourseFeatures.Duration=course.CourseFeatures.Duration;
+            existedCourse.CourseFeatures.ClassDuration=course.CourseFeatures.ClassDuration;
+            existedCourse.CourseFeatures.SkillLevel=course.CourseFeatures.SkillLevel;
+            existedCourse.CourseFeatures.Language=course.CourseFeatures.Language;
+            existedCourse.CourseFeatures.StudentsCount=course.CourseFeatures.StudentsCount;
 
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Delete(int id)
+        {
+            Course course = _context.Courses.FirstOrDefault(t => t.Id == id);
+            if (course == null) return Json(new { status = 404 });
+
+            _context.Courses.Remove(course);
+            _context.SaveChanges();
+
+            return Json(new { status = 200 });
         }
     }
 }

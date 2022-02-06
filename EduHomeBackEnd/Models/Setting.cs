@@ -17,5 +17,8 @@ namespace EduHomeBackEnd.Models
         public string FacebookIcon { get; set; }
         [StringLength(maximumLength: 150)]
         public string VimeoIcon { get; set; }
+        [StringLength(maximumLength: 200)]
+        public string VideoURL { get; set; }
+
     }
 }
